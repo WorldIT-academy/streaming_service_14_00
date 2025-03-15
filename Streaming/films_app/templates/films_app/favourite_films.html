@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Favourite films</h1>
+    {% for film in favourite_films %}
+        <hr>
+        <h2>{{film.name }}</h2>
+        <img src="{{film.image.url}}" alt="">
+        
+    {% endfor %}
+{% endblock %}
