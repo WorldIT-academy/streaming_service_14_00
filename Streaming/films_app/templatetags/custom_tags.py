@@ -10,4 +10,5 @@ def amount_favourite_films(request):
         pk_list = cookies.split(" ")
         amount_favourite_films = len(pk_list)
     return amount_favourite_films
+  
  

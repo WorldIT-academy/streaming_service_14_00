@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
     <title> 
@@ -15,13 +16,14 @@
             <img src="{{ film.image.url }}">
             <p>{{ film.description }}</p>
             <p>
-                {% if film.favourite %}
-                    <a href="{% url 'add_to_favourite' film.id %}">delete from favorite</a>
-                {% else %}
-                    <a href="{% url 'add_to_favourite' film.id %}">add to favorite</a>
-                {% endif %}
+                <button value="{% url 'add_to_favourite' film.id %}" class="add-to-favorite">add to favorite</button>
             </p>
         </div>
     {% endfor %}
+    <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
+    <script src="{% static 'js/favourite.js' %}"></script>
+    <script>
+        console.log('Requests')
+    </script>
 {% endblock %}
 

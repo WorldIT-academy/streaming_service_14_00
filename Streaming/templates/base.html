@@ -7,19 +7,19 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         {% block title %}{% endblock %}
         {% block links %}{% endblock %}
-        <link rel="stylesheet" href="{% static 'base.css' %}">
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
     </head>
     <body>
         <header>
             <nav>
                 <a href="/">Home</a>
                 <a href="{% url 'all_films' %}">Films</a>
-                <a href="{% url 'favourite_films' %}">Favourite ({% amount_favourite_films request %})</a>
+                <!-- <a href="{% url 'favourite_films' %}">Favourite ({% amount_favourite_films request %})</a> -->
+                <a href="{% url 'favourite_films' %}">Favourite (<span class="amount-favourite-films">{% amount_favourite_films request %}</span>)</a>
             </nav>
         </header>
         {% block content %}
 
         {% endblock %}
-        
     </body>
 </html>

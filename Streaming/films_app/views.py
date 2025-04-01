@@ -7,8 +7,15 @@ colorama.init(autoreset= True)
 RED = colorama.Fore.RED
 # Create your views here.
 def render_films(request):
-    
-    return render(request, "films_app/films.html", context={"all_films": Film.objects.all()})
+    cookies = request.COOKIES.get('favourite_films')
+    response = render(request, "films_app/films.html", context={"all_films": Film.objects.all()})
+    if cookies:
+        response.set_cookie('favourite_films', cookies)
+    else:
+        response.set_cookie('favourite_films', '')
+        
+    # return render(request, "films_app/films.html", context={"all_films": Film.objects.all()})
+    return response
 
 def add_to_favourite(request: HttpRequest, film_pk: int):
     try:
@@ -32,8 +39,6 @@ def add_to_favourite(request: HttpRequest, film_pk: int):
             #
         film.save()
         response.set_cookie('favourite_films', cookies)
- 
-
         return response
     except Exception as error:
         print(f"ERROR: -> {RED}{error}")
