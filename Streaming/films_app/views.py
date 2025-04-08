@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpRequest
 from .models import Film
+from .forms import ReviewForm
 import colorama
 
 colorama.init(autoreset= True)
@@ -8,11 +9,15 @@ RED = colorama.Fore.RED
 # Create your views here.
 def render_films(request):
     cookies = request.COOKIES.get('favourite_films')
-    response = render(request, "films_app/films.html", context={"all_films": Film.objects.all()})
-    if cookies:
-        response.set_cookie('favourite_films', cookies)
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
     else:
-        response.set_cookie('favourite_films', '')
+        form = ReviewForm()
+        response = render(request, "films_app/films.html", context={"all_films": Film.objects.all(), "form": form})
+        if cookies:
+            response.set_cookie('favourite_films', cookies)
+        else:
+            response.set_cookie('favourite_films', '')
         
     # return render(request, "films_app/films.html", context={"all_films": Film.objects.all()})
     return response

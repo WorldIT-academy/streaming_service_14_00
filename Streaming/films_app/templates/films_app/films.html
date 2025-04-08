@@ -20,10 +20,18 @@
             </p>
         </div>
     {% endfor %}
+
+    <form id="reviewForm" method="post">
+        <hr>
+        <h2>Задайте свій відгук про наш веб-хост</h2>
+        <p id="message_success" ></p>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button>Відправити</button>
+    </form>
+
     <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
     <script src="{% static 'js/favourite.js' %}"></script>
-    <script>
-        console.log('Requests')
-    </script>
+    <script src="{% static 'js/send_review.js' %}"></script>
 {% endblock %}
 
