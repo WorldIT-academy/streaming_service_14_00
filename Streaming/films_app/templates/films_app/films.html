@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load custom_tags %}
 
 {% block title %}
     <title> 
@@ -9,17 +10,23 @@
 
 {% block content %}
     <h1>Films</h1>
-    {% for film in all_films %}
+    {% filter_genres %}
+    <div id="allFilms">
+        {% for film in all_films %}
+            <hr>
+            <div>
+                <h1>{{ film.name }}</h1>
+                <p>Жанр: {{ film.genre }}</p>
+                <img src="{{ film.image.url }}">
+                <p>{{ film.description }}</p>
+                <p>
+                    <button value="{% url 'add_to_favourite' film.id %}" class="add-to-favorite">add to favorite</button>
+                </p>
+            </div>
+        {% endfor %}
         <hr>
-        <div>
-            <h1>{{ film.name }}</h1>
-            <img src="{{ film.image.url }}">
-            <p>{{ film.description }}</p>
-            <p>
-                <button value="{% url 'add_to_favourite' film.id %}" class="add-to-favorite">add to favorite</button>
-            </p>
-        </div>
-    {% endfor %}
+        <hr>
+    </div>
 
     <form id="reviewForm" method="post">
         <hr>

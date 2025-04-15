@@ -1,4 +1,5 @@
 from django import template
+from films_app.models import Film
 
 register = template.Library()
 
@@ -10,5 +11,14 @@ def amount_favourite_films(request):
         pk_list = cookies.split(" ")
         amount_favourite_films = len(pk_list)
     return amount_favourite_films
+
+@register.inclusion_tag("films_app/inclusion_tags/filter_genres.html")
+def filter_genres():
+    genres = []
+    films = Film.objects.all()
+    for film in films:
+        if film.genre not in genres:
+            genres.append(film.genre)
+    return {"genres": genres}
   
  
